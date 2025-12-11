@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Documentación de Casos de Uso</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f5f5f5;
+    }
+
+    /* --- Sidebar --- */
+    .sidebar {
+        height: 100%;
+        width: 260px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: #111;
+        padding-top: 20px;
+        color: white;
+        overflow-y: auto;
+    }
+    .sidebar h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 22px;
+    }
+    .sidebar a {
+        display: block;
+        padding: 12px 20px;
+        color: #ddd;
+        text-decoration: none;
+        font-size: 16px;
+        border-bottom: 1px solid #333;
+    }
+    .sidebar a:hover {
+        background: #444;
+        color: #fff;
+    }
+
+    /* --- Main content --- */
+    .content {
+        margin-left: 280px;
+        padding: 30px;
+    }
+
+    .case-title {
+        font-size: 24px;
+        background: #000;
+        color: #fff;
+        padding: 12px 20px;
+        margin-top: 40px;
+        border-radius: 6px;
+    }
+
+    h3 {
+        margin-top: 25px;
+        color: #222;
+    }
+
+    p, li {
+        font-size: 16px;
+        color: #333;
+    }
+
+    ul, ol {
+        margin-left: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+        margin-bottom: 20px;
+    }
+    table, th, td {
+        border: 1px solid #ccc;
+    }
+
+    th {
+        background: #222;
+        color: white;
+        padding: 10px;
+        text-align: left;
+    }
+
+    td {
+        padding: 10px;
+        background: white;
+    }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>Casos de Uso</h2>
+    <a href="#CU01">CU01 – Configurar Parámetros</a>
+    <a href="#CU02">CU02 – Registrar Ingreso de Almacén</a>
+    <a href="#CU03">CU03 – Registrar Salida de Almacén</a>
+    <a href="#CU04">CU04 – Consultar Stock y Movimientos</a>
+    <a href="#CU05">CU05 – Gestión de Entidad</a>
+    <a href="#CU06">CU06 – Suministro a Unidades</a>
+    <a href="#CU07">CU07 – Anular Boletos</a>
+    <a href="#CU08">CU08 – Transferir Boletos</a>
+    <a href="#CU09">CU09 – Asignación de Frecuencias de Despacho</a>
+    <a href="#CU10">CU010 – Gestión de la Cola de Despacho</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+<!-- ===================================== -->
+<!-- CU01 -->
+<!-- ===================================== -->
+
+<div id="CU01">
+    <div class="case-title">CU01 – Configurar Parámetros de los Boletos</div>
+
+    <h3>Identificador</h3>
+    <p><strong>ID:</strong> CU01</p>
+
+    <h3>Actor(es)</h3>
+    <ul>
+        <li>Administrador Operativo</li>
+        <li>Jefe de Operaciones</li>
+        <li>Asistente de Operaciones</li>
+    </ul>
+
+    <h3>Objetivo</h3>
+    <p>
+        Definir y registrar los parámetros esenciales para la estructura y control de los boletos, incluyendo
+        numeraciones, reposiciones, rutas, correlativos y características base para su administración.
+    </p>
+
+    <h3>Precondiciones</h3>
+    <ul>
+        <li>Usuario autenticado.</li>
+        <li>Permisos administrativos activos.</li>
+        <li>Conectividad estable.</li>
+    </ul>
+
+    <h3>Postcondiciones</h3>
+    <ul>
+        <li>Los parámetros quedan registrados en la BD.</li>
+        <li>Se actualiza la numeración y reposición automáticamente.</li>
+    </ul>
+
+    <h3>Flujo Principal</h3>
+    <ol>
+        <li>El usuario ingresa al módulo “Parámetros de Boletos”.</li>
+        <li>Presiona el botón “Nuevo”.</li>
+        <li>Ingresa el nombre del boleto en un campo de texto.</li>
+        <li>Ingresa el código o número identificador del boleto.</li>
+        <li>El sistema fija la denominación por talonario (100 unidades).</li>
+        <li>Selecciona la ruta (ej. 8102).</li>
+        <li>Ingresa el número de orden.</li>
+        <li>Ingresa numeración correlativa máxima.</li>
+        <li>Ingresa reposición por paquete.</li>
+        <li>Configura suministro automático.</li>
+        <li>Configura reposición automática.</li>
+        <li>Presiona “Guardar”.</li>
+        <li>El sistema valida y registra los parámetros.</li>
+    </ol>
+
+    <h3>Flujos Alternos</h3>
+    <ol>
+        <li><strong>FA-01:</strong> Datos incompletos → mensaje de error.</li>
+        <li><strong>FA-02:</strong> Error de conectividad → el sistema impide el registro.</li>
+    </ol>
+
+    <h3>Reglas de Negocio</h3>
+    <table>
+        <tr><th>ID</th><th>Regla</th></tr>
+        <tr><td>RN01</td><td>La numeración debe ser siempre ascendente.</td></tr>
+        <tr><td>RN02</td><td>No deben existir boletos con nombres duplicados.</td></tr>
+        <tr><td>RN03</td><td>La numeración máxima debe ser superior a la inicial.</td></tr>
+        <tr><td>RN04</td><td>La reposición automática debe estar entre 1% y 10%.</td></tr>
+    </table>
+</div>
+
+<!-- ===================================== -->
+<!-- CU02 -->
+<!-- ===================================== -->
+
+<div id="CU02">
+    <div class="case-title">CU02 – Registrar Ingreso de Almacén</div>
+
+    <h3>ID</h3><p><strong>CU02</strong></p>
+
+    <h3>Actor</h3>
+    <ul><li>Despachador</li></ul>
+
+    <h3>Objetivo</h3>
+    <p>
+        Registrar el ingreso de boletos al almacén, identificando tipo de ingreso, proveedor, documentos asociados
+        y rangos de numeración para garantizar su correcto control en el sistema.
+    </p>
+
+    <h3>Flujo Principal</h3>
+    <ol>
+        <li>El usuario ingresa a “Ingreso de Almacén”.</li>
+        <li>Presiona el botón “Nuevo”.</li>
+        <li>Selecciona el tipo de ingreso (Compra o Inventario).</li>
+        <li>Selecciona el proveedor.</li>
+        <li>Ingresa el documento de compra o guía.</li>
+        <li>Ingresa serie y número de la guía.</li>
+        <li>Ingresa la serie inicial y número inicial del boleto.</li>
+        <li>Registra la cantidad de paquetes recibidos.</li>
+        <li>Presiona “Guardar”.</li>
+        <li>El sistema registra el ingreso.</li>
+    </ol>
+
+    <h3>Flujos Alternos</h3>
+    <ol>
+        <li><strong>FA-01:</strong> Serie inválida → mensaje de error.</li>
+        <li><strong>FA-02:</strong> Paquetes en cero → mensaje de validación.</li>
+    </ol>
+
+    <h3>Reglas de Negocio</h3>
+    <table>
+        <tr><th>ID</th><th>Descripción</th></tr>
+        <tr><td>RN10</td><td>No se deben registrar rangos duplicados.</td></tr>
+        <tr><td>RN11</td><td>La cantidad de paquetes debe ser mayor a 0.</td></tr>
+    </table>
+</div>
+
+<!-- ===================================== -->
+<!-- CU03 -->
+<!-- ===================================== -->
+
+<div id="CU03">
+    <div class="case-title">CU03 – Registrar Salida de Almacén</div>
+
+    <h3>ID</h3><p><strong>CU03</strong></p>
+
+    <h3>Actor</h3>
+    <ul><li>Despachador</li></ul>
+
+    <h3>Objetivo</h3>
+    <p>
+        Registrar la salida de boletos desde el almacén, asociando destino, responsable de recepción
+        y los rangos suministrados, garantizando su trazabilidad.
+    </p>
+
+    <h3>Flujo Principal</h3>
+    <ol>
+        <li>Ingresa al módulo “Salida de Almacén”.</li>
+        <li>Presiona “Nuevo”.</li>
+        <li>Selecciona el destino.</li>
+        <li>Selecciona al responsable.</li>
+        <li>Ingresa la serie y numeración a entregar.</li>
+        <li>Presiona “Guardar”.</li>
+        <li>El sistema registra la salida.</li>
+    </ol>
+
+    <h3>Flujos Alternos</h3>
+    <ol>
+        <li><strong>FA-01:</strong> Responsable no seleccionado → mensaje de validación.</li>
+    </ol>
+
+    <h3>Reglas</h3>
+    <table>
+        <tr><th>ID</th><th>Descripción</th></tr>
+        <tr><td>RN20</td><td>No se pueden entregar talonarios sin stock.</td></tr>
+        <tr><td>RN21</td><td>Toda salida debe registrar destino y responsable.</td></tr>
+    </table>
+</div>
+
+<!-- ===================================== -->
+<!-- CU04 -->
+<!-- ===================================== -->
+
+<div id="CU04">
+    <div class="case-title">CU04 – Consultar Stock y Movimientos</div>
+
+    <h3>ID</h3><p><strong>CU04</strong></p>
+
+    <h3>Actores</h3>
+    <ul>
+        <li>Despachador</li>
+        <li>Administrador Operativo</li>
+        <li>Jefe / Asistente de Operaciones</li>
+    </ul>
+
+    <h3>Objetivo</h3>
+    <p>
+        Permitir la consulta del stock disponible y los movimientos registrados de cada tipo de boleto,
+        facilitando el seguimiento y control operativo.
+    </p>
+
+    <h3>Flujo Principal</h3>
+    <ol>
+        <li>El usuario accede al módulo “Stock”.</li>
+        <li>El sistema muestra stock total y movimientos.</li>
+        <li>El usuario aplica filtros por fecha, tipo de boleto o rangos.</li>
+    </ol>
+
+    <h3>Flujos Alternos</h3>
+    <ol>
+        <li><strong>FA-01:</strong> Sin internet → se muestran datos en caché.</li>
+    </ol>
+
+    <h3>Reglas</h3>
+    <table>
+        <tr><th>ID</th><th>Descripción</th></tr>
+        <tr><td>RN30</td><td>Datos deben actualizarse cada 30 segundos.</td></tr>
+    </table>
+</div>
+
+<!-- ===================================== -->
+<!-- CU05 -->
+<!-- ===================================== -->
+
+<div id="CU05">
+    <div class="case-title">CU05 – Gestión de Entidad</div>
+
+    <h3>ID</h3><p><strong>CU05</strong></p>
+
+    <h3>Actor</h3>
+    <ul><li>Despachador</li></ul>
+
+    <h3>Objetivo</h3>
+    <p>
+        Permitir al usuario abrir, gestionar y cerrar la entidad operativa encargada del suministro de boletos,
+        asegurando control sobre las operaciones activas.
+    </p>
+
+    <h3>Flujo Principal (Apertura)</h3>
+    <ol>
+        <li>El usuario abre “Gestión de Entidad”.</li>
+        <li>Presiona “Nuevo”.</li>
+        <li>Selecciona la entidad.</li>
+        <li>Presiona “Guardar”.</li>
+    </ol>
+
+    <h3>Flujo de Cierre</h3>
+    <ol>
+        <li>Selecciona “Cerrar Entidad”.</li>
+        <li>Confirma la acción.</li>
+        <li>El sistema cierra la entidad.</li>
+    </ol>
+
+    <h3>Reglas de Negocio</h3>
+    <table>
+        <tr><th>ID</th><th>Regla</th></tr>
+        <tr><td>RN60</td><td>No se puede suministrar si no existe una entidad abierta.</td></tr>
+        <tr><td>RN61</td><td>Solo una entidad puede estar activa a la vez.</td></tr>
+    </table>
+</div>
+
+<!-- ===================================== -->
+<!-- CU06 -->
+<!-- ===================================== -->
+
+<div id="CU06">
+    <div class="case-title">CU06 – Suministro de Boletos a la Unidad</div>
+
+    <h3>ID</h3><p><strong>CU06</strong></p>
+
+    <h3>Actor</h3>
+    <ul><li>Despachador</li></ul>
+
+    <h3>Objetivo</h3>
+    <p>
+        Registrar el suministro de boletos a la unidad operativa, indicando tipos de boletos, cantidades
+        y rangos entregados, asegurando trazabilidad del proceso.
+    </p>
+
+    <h3>Flujo Principal</h3>
+    <ol>
+        <li>El usuario abre “Suministro”.</li>
+        <li>El sistema muestra boletos disponibles.</li>
+        <li>El usuario ajusta la cantidad de talonarios.</li>
+        <li>El sistema muestra el detalle del suministro.</li>
+        <li>El usuario confirma la operación.</li>
+        <li>El sistema registra el suministro.</li>
+    </ol>
+
+    <h3>Reglas</h3>
+    <table>
+        <tr><th>ID</th><th>Regla</th></tr>
+        <tr><td>RN70</td><td>No puede entregarse más stock del disponible.</td></tr>
+        <tr><td>RN71</td><td>Toda entrega debe registrar responsable y fecha.</td></tr>
+    </table>
+</div>
+
+<!-- ===================================== -->
+<!-- CU07 -->
+<!-- ===================================== -->
+
+<div id="CU07">
+    <div class="case-title">CU07 – Anular Boletos</div>
+
+    <h3>ID</h3><p><strong>CU07</strong></p>
+
+    <h3>Objetivo</h3>
+    <p>
+        Registrar la anulación de uno o varios talonarios, indicando el motivo y actualizando el estado
+        del stock correspondiente.
+    </p>
+
+    <h3>Flujo</h3>
+    <ol>
+        <li>El usuario abre “Anular Boletos”.</li>
+        <li>Selecciona los talonarios a anular.</li>
+        <li>Presiona “Anular”.</li>
+        <li>Confirma la operación.</li>
+    </ol>
+
+    <h3>Reglas</h3>
+    <table>
+        <tr><th>ID</th><th>Descripción</th></tr>
+        <tr><td>RN80</td><td>Solo se pueden anular talonarios activos.</td></tr>
+    </table>
+</div>
+
+<!-- ===================================== -->
+<!-- CU08 -->
+<!-- ===================================== -->
+
+<div id="CU08">
+    <div class="case-title">CU08 – Transferir Boletos</div>
+
+    <h3>ID</h3><p><strong>CU08</strong></p>
+
+    <h3>Objetivo</h3>
+    <p>
+        Registrar la transferencia de talonarios, reservas o saldos entre unidades,
+        asegurando el control del origen, destino y disponibilidad.
+    </p>
+
+    <h3>Flujo Principal</h3>
+    <ol>
+        <li>El usuario abre “Transferir Boletos”.</li>
+        <li>Selecciona el tipo de transferencia.</li>
+        <li>Selecciona la unidad destino.</li>
+        <li>Confirma la transferencia.</li>
+        <li>El sistema registra la operación.</li>
+    </ol>
+
+    <h3>Reglas</h3>
+    <table>
+        <tr><th>ID</th><th>Regla</th></tr>
+        <tr><td>RN90</td><td>No se puede transferir un talonario anulado.</td></tr>
+        <tr><td>RN91</td><td>Debe existir disponibilidad para transferir.</td></tr>
+    </table>
+</div>
+<!-- ===================================== -->
+<!-- CU08 – ASIGNACIÓN DE FRECUENCIAS -->
+<!-- ===================================== -->
+<div id="CU09">
+    <div class="case-title">CU09 – Asignación de Frecuencias de Despacho</div>
+
+    <h3>Objetivo</h3>
+    <p>
+        Permitir al despachador asignar, modificar y administrar las frecuencias de salida de las unidades,
+        asegurando que cada bus tenga un horario de partida coherente con la programación y demanda operativa.
+    </p>
+
+    <h3>Actores</h3>
+    <ul>
+        <li>Despachador</li>
+    </ul>
+
+    <h3>Flujo Principal</h3>
+    <ol>
+        <li>El despachador abre el módulo “Frecuencias de Despacho”.</li>
+        <li>El sistema muestra:
+            <ul>
+                <li>Unidades activas disponibles para asignación.</li>
+                <li>Horarios actuales y próximos intervalos.</li>
+                <li>Indicadores visuales según demanda (verde-normal, amarillo-ajustada, rojo-saturado).</li>
+            </ul>
+        </li>
+        <li>El despachador selecciona una unidad o ruta.</li>
+        <li>El sistema muestra un selector táctil de hora y minuto (time picker).</li>
+        <li>El despachador selecciona la hora de salida deseada.</li>
+        <li>El sistema sugiere:
+            <ul>
+                <li>Intervalo recomendado según flujo.</li>
+                <li>Conflictos de horario si existen.</li>
+            </ul>
+        </li>
+        <li>El despachador confirma la frecuencia.</li>
+        <li>El sistema registra y sincroniza la programación en tiempo real.</li>
+    </ol>
+
+    <h3>Flujos Alternos</h3>
+    <ol>
+        <li><strong>FA-01:</strong> Si la frecuencia seleccionada se superpone → alerta y sugerencia de horario alterno.</li>
+        <li><strong>FA-02:</strong> Si la unidad está en mantenimiento → bloqueo.</li>
+        <li><strong>FA-03:</strong> Si no existen unidades disponibles → sugerencia de reasignación.</li>
+    </ol>
+
+    <h3>Reglas de Negocio</h3>
+    <table>
+        <tr><th>ID</th><th>Regla</th></tr>
+        <tr><td>RN201</td><td>No se pueden programar dos salidas de la misma unidad dentro del mismo intervalo mínimo.</td></tr>
+        <tr><td>RN202</td><td>Las frecuencias deben sincronizarse con la planificación diaria.</td></tr>
+        <tr><td>RN203</td><td>El despachador puede modificar horarios solo dentro de su turno asignado.</td></tr>
+    </table>
+</div>
+
+
+
+<!-- ===================================== -->
+<!-- CU09 – COLA DE DESPACHO -->
+<!-- ===================================== -->
+<div id="CU10">
+    <div class="case-title">CU10 – Gestión de la Cola de Despacho</div>
+
+    <h3>Objetivo</h3>
+    <p>
+        Administrar la cola de unidades en espera de salida, registrando la hora de inicio de operación y
+        controlando prioridades según orden de llegada y estado operativo de cada unidad.
+    </p>
+
+    <h3>Actores</h3>
+    <ul>
+        <li>Despachador</li>
+    </ul>
+
+    <h3>Contexto Operativo</h3>
+    <p>
+        La cola de despacho permite registrar la salida de la unidad, marcando el inicio de su operación en ruta.
+        Indicadores clave:
+    </p>
+    <ul>
+        <li><span class="indicador red">Círculo Rojo</span>: El conductor no tiene logueo GPS.</li>
+        <li>Enter para despachar rápidamente (movil → botón “Despachar”).</li>
+        <li>Ingreso rápido de padrón (ej. 005) en un campo numérico.</li>
+    </ul>
+
+    <h3>Flujo Principal</h3>
+    <ol>
+        <li>El despachador abre “Cola de Despacho”.</li>
+        <li>El sistema lista:
+            <ul>
+                <li>Unidades en cola.</li>
+                <li>Prioridad de menor a mayor como lo define la operación.</li>
+                <li>Indicadores de GPS, estado, conductor y hora estimada.</li>
+            </ul>
+        </li>
+
+        <li>El despachador selecciona una unidad o ingresa el padrón en un campo táctil numérico.</li>
+
+        <li>El sistema valida:
+            <ul>
+                <li>Si el conductor tiene o no sesión GPS activa.</li>
+                <li>Si la unidad no está marcada como fuera de servicio.</li>
+            </ul>
+        </li>
+
+        <li>El sistema muestra la hora actual y un botón “Registrar Salida”.</li>
+
+        <li>El despachador confirma.</li>
+
+        <li>El sistema registra:
+            <ul>
+                <li>Hora exacta de salida.</li>
+                <li>Inicio de operación.</li>
+                <li>Actualización de frecuencia y ruta.</li>
+            </ul>
+        </li>
+
+        <li>La unidad desaparece de la cola y aparece en “En operación”.</li>
+    </ol>
+
+    <h3>Flujos Alternos</h3>
+    <ol>
+        <li><strong>FA-01:</strong> No hay logueo GPS → advertencia, pero permite despachar.</li>
+        <li><strong>FA-02:</strong> Unidad fuera de servicio → bloqueo.</li>
+        <li><strong>FA-03:</strong> Unidad ya fue despachada → refresco de lista.</li>
+    </ol>
+
+    <h3>Reglas de Negocio</h3>
+    <table>
+        <tr><th>ID</th><th>Regla</th></tr>
+        <tr><td>RN301</td><td>Las unidades se ordenan por prioridad operativa definida por la operación.</td></tr>
+        <tr><td>RN302</td><td>El sistema debe permitir despachar unidades incluso sin GPS, pero anotando incidencia.</td></tr>
+        <tr><td>RN303</td><td>No se puede registrar salida si la unidad está marcada como fuera de servicio.</td></tr>
+        <tr><td>RN304</td><td>El registro de salida debe generar una marca de tiempo exacta y no editable.</td></tr>
+    </table>
+</div>
+
+
+</div>
+
+
+</div>
+</body>
+</html>
