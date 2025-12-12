@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Documentación de DTOs</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #fafafa;
+        padding: 20px;
+        color: #333;
+    }
+    h2 {
+        margin-top: 40px;
+        color: #111;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 6px;
+    }
+    .description {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 10px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+        background: #fff;
+        border: 1px solid #ddd;
+    }
+    th, td {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+        font-size: 14px;
+    }
+    th {
+        background: #f5f5f5;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<h1>Documentación de DTOs del Sistema</h1>
+<p style="color:#666;">Este documento describe cada DTO, su propósito y los atributos que lo conforman.</p>
+
+<!-- DeviceOptionDTO -->
+<h2>DeviceOptionDTO</h2>
+<p class="description">
+    <strong>Objetivo:</strong> Configurar opciones generales del dispositivo, incluyendo reinicios automáticos y código de empresa.
+</p>
+<table>
+<tr><th>Atributo</th><th>Tipo</th><th>Descripción</th></tr>
+<tr><td>rebootsPerDay</td><td>Int</td><td>Número máximo de reinicios automáticos permitidos por día.</td></tr>
+<tr><td>companyCode</td><td>Int</td><td>Código de la compañía asociada al dispositivo.</td></tr>
+</table>
+
+<!-- TrackParamsDTO -->
+<h2>TrackParamsDTO</h2>
+<p class="description">
+    <strong>Objetivo:</strong> Gestiona todos los parámetros de <strong>tracking de ubicación y telemetría</strong>.  
+    Controla intervalos, velocidades y envíos de puntos GPS.
+</p>
+<table>
+<tr><th>Atributo</th><th>Tipo</th><th>Descripción</th></tr>
+<tr><td>isTrackEnabled</td><td>Boolean</td><td>Activa/desactiva el tracking GPS.</td></tr>
+<tr><td>isSendPendingTracks</td><td>Boolean</td><td>Envía tracks pendientes cuando haya internet.</td></tr>
+<tr><td>timeUploadPendingTracks</td><td>Long (ms)</td><td>Tiempo entre envíos de tracks pendientes.</td></tr>
+<tr><td>minimumSpeed</td><td>Int</td><td>Velocidad mínima para detectar movimiento.</td></tr>
+<tr><td>maximumSpeed</td><td>Int</td><td>Velocidad máxima permitida (0 = sin límite).</td></tr>
+<tr><td>maximumTimeStopped</td><td>Int (seg)</td><td>Tiempo máximo detenido antes de marcar inactividad.</td></tr>
+<tr><td>smallInterval</td><td>Int (seg)</td><td>Intervalo de envío en movimiento.</td></tr>
+<tr><td>largeInterval</td><td>Int (seg)</td><td>Intervalo de envío detenido.</td></tr>
+</table>
+
+<!-- PingConnectionDTO -->
+<h2>PingConnectionDTO</h2>
+<p class="description">
+    <strong>Objetivo:</strong> Verificar la <strong>conectividad real a internet</strong> usando tests de ping.
+</p>
+<table>
+<tr><th>Atributo</th><th>Tipo</th><th>Descripción</th></tr>
+<tr><td>isPingEnabled</td><td>Boolean</td><td>Activa/desactiva las pruebas de ping.</td></tr>
+<tr><td>pingAttemps</td><td>Int</td><td>Cantidad de intentos de ping antes de marcar fallo.</td></tr>
+<tr><td>address</td><td>String</td><td>Host al cual hacer ping (ej: google.com).</td></tr>
+<tr><td>pingTime</td><td>Long (ms)</td><td>Intervalo entre pings.</td></tr>
+</table>
+
+<!-- CallParamsDTO -->
+<h2>CallParamsDTO</h2>
+<p class="description">
+    <strong>Objetivo:</strong> Configurar servicios de comunicación RTC (videollamadas o voz) basados en WebRTC.
+</p>
+<table>
+<tr><th>Atributo</th><th>Tipo</th><th>Descripción</th></tr>
+<tr><td>rtcEnabled</td><td>Boolean</td><td>Habilita o no el módulo RTC.</td></tr>
+<tr><td>signalServerUrl</td><td>String</td><td>URL del servidor de señalización WebRTC.</td></tr>
+</table>
+
+<!-- IdentityServerCredentialParamsDTO -->
+<h2>IdentityServerCredentialParamsDTO</h2>
+<p class="description">
+    <strong>Objetivo:</strong> Manejar las credenciales necesarias para obtener tokens del servidor OAuth2/IdentityServer.
+</p>
+<table>
+<tr><th>Atributo</th><th>Tipo</th><th>Descripción</th></tr>
+<tr><td>username</td><td>String</td><td>Usuario para autenticación.</td></tr>
+<tr><td>password</td><td>String</td><td>Contraseña del usuario.</td></tr>
+<tr><td>clientId</td><td>String</td><td>Identificador del cliente OAuth2.</td></tr>
+<tr><td>clientSecret</td><td>String</td><td>Secreto asociado al cliente.</td></tr>
+<tr><td>scope</td><td>String</td><td>Permisos solicitados al autenticarse.</td></tr>
+<tr><td>grantType</td><td>String</td><td>Tipo de flujo de autenticación.</td></tr>
+</table>
+
+<!-- BrokerParamsDTO -->
+<h2>BrokerParamsDTO</h2>
+<p class="description">
+    <strong>Objetivo:</strong> Configurar los parámetros de conexión al broker MQTT, usado para mensajería en tiempo real.
+</p>
+<table>
+<tr><th>Atributo</th><th>Tipo</th><th>Descripción</th></tr>
+<tr><td>brokerUrl</td><td>String</td><td>URL del broker MQTT.</td></tr>
+<tr><td>brokerUsername</td><td>String</td><td>Usuario del broker.</td></tr>
+<tr><td>brokerPassword</td><td>String</td><td>Contraseña del broker.</td></tr>
+</table>
+
+<!-- DTOs no contemplados -->
+<h2>DTOs No Contemplados</h2>
+<p class="description">
+    <strong>Objetivo:</strong> Explicar qué DTOs no se incluirán en la configuración enviada por el MDM
+    y los motivos por los cuales quedan excluidos.
+</p>
+
+<table>
+<tr><th>DTO</th><th>Motivo de Exclusión</th></tr>
+
+<tr>
+    <td>LauncherParamsDTO</td>
+    <td>
+        Este DTO gestiona comportamientos del launcher como flujos de verificación o avisos del sistema.
+        El MDM ya controla el launcher y las políticas del dispositivo, por lo que incluirlo sería redundante.
+    </td>
+</tr>
+
+<tr>
+    <td>ANRParamsDTO</td>
+    <td>
+        Maneja validaciones internas de ANR (App Not Responding) e incluso reinicios por problemas internos.
+        Estas funciones deben quedar controladas por la propia app o por el sistema, no por configuraciones
+        enviadas desde el MDM.
+    </td>
+</tr>
+
+<tr>
+    <td>ScreenSettingsDTO</td>
+    <td>
+        Controla configuraciones de pantalla como aumento de brillo o ajustes visuales.
+        Estas configuraciones pertenecen a políticas del MDM, que ya administra el brillo,
+        bloqueo de pantalla y perfiles de energía, evitando duplicidad y conflictos.
+    </td>
+</tr>
+
+</table>
+
+<!-- Formato de envío completo de DTOs -->
+<h2>Formato de Envío de DTOs</h2>
+<p class="description">
+    Esta sección describe cómo enviar todos los DTOs de configuración a la app.  
+    Se presentan dos opciones: <strong>JSON</strong> y <strong>String separado por caracteres especiales</strong>.
+</p>
+
+<!-- Formato JSON -->
+<h3>1. Formato JSON (Recomendado)</h3>
+<p class="description">
+    Estructura estandarizada y fácil de parsear. Ideal para la mayoría de MDMs modernos.
+</p>
+<pre style="background:#f5f5f5; padding:10px; border-radius:4px; overflow-x:auto;">
+{
+  "deviceOptions": {
+    "rebootsPerDay": 10,
+    "companyCode": 123
+  },
+  "pingConnection": {
+    "isPingEnabled": true,
+    "pingAttemps": 5,
+    "address": "www.google.com",
+    "pingTime": 60000
+  },
+  "trackParams": {
+    "isTrackEnabled": true,
+    "isSendPendingTracks": true,
+    "timeUploadPendingTracks": 300000,
+    "minimumSpeed": 4,
+    "maximumSpeed": 0,
+    "maximumTimeStopped": 1200,
+    "smallInterval": 8,
+    "largeInterval": 1800
+  },
+  "callParams": {
+    "rtcEnabled": true,
+    "signalServerUrl": "https://signal-server.abexacloud.com"
+  },
+  "identityServerCredentials": {
+    "username": "xtu-mobile-app",
+    "password": "xtu-mobile-app",
+    "clientId": "iGnYoHN2aAwPWTdWrWYkimwJY78a",
+    "clientSecret": "1PMetOfkOscdVkKi4NIWitqUp7OMmd33nrjsj9DNQgQa",
+    "scope": "openid xtu-mobile.read xtu-mobile.write monitor-logging.read monitor-logging.write profile",
+    "grantType": "password"
+  },
+  "brokerParams": {
+    "brokerUrl": "tcp://serverdevops.abexa.pe:1883",
+    "brokerUsername": "admin",
+    "brokerPassword": "admin"
+  }
+}
+</pre>
+
+<!-- Formato String -->
+<h3>2. Formato String con Separadores</h3>
+<p class="description">
+    Se envía todo en una sola línea. Cada DTO se separa con <strong>*</strong> y cada atributo con <strong>|</strong>.  
+    Útil cuando el MDM no soporta JSON.
+</p>
+<pre style="background:#f5f5f5; padding:10px; border-radius:4px; overflow-x:auto;">
+DeviceOptionDTO|rebootsPerDay=10|companyCode=123
+*
+PingConnectionDTO|isPingEnabled=true|pingAttemps=5|address=www.google.com|pingTime=60000
+*
+TrackParamsDTO|isTrackEnabled=true|isSendPendingTracks=true|timeUploadPendingTracks=300000|minimumSpeed=4|maximumSpeed=0|maximumTimeStopped=1200|smallInterval=8|largeInterval=1800
+*
+CallParamsDTO|rtcEnabled=true|signalServerUrl=https://signal-server.abexacloud.com
+*
+IdentityServerCredentialParamsDTO|username=xtu-mobile-app|password=xtu-mobile-app|clientId=iGnYoHN2aAwPWTdWrWYkimwJY78a|clientSecret=1PMetOfkOscdVkKi4NIWitqUp7OMmd33nrjsj9DNQgQa|scope=openid xtu-mobile.read xtu-mobile.write monitor-logging.read monitor-logging.write profile|grantType=password
+*
+BrokerParamsDTO|brokerUrl=tcp://serverdevops.abexa.pe:1883|brokerUsername=admin|brokerPassword=admin
+</pre>
+
+<p class="description">
+<strong>Nota:</strong> El formato JSON es más seguro, legible y fácil de validar; el formato string es más compacto pero requiere parsing manual y control de errores.
+</p>
+
+</body>
+</html>
